@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!--로그 파일 저장 위치-->
+    <!--
+    <property name="LOGS_PATH" value="./logs"/>
+    -->
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- On Windows machines setting withJansi to true enables ANSI
+             color code interpretation by the Jansi library. This requires
+             org.fusesource.jansi:jansi:1.8 on the class path.  Note that
+             Unix-based operating systems such as Linux and Mac OS X
+             support ANSI color codes by default. -->
+        <withJansi>true</withJansi>
+        <encoder>
+            <pattern>[%thread] %highlight(%-5level) %cyan(%logger{100}) - %msg %n</pattern>
+        </encoder>
+    </appender>
+    <appender name="SAMPLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- <appender name="DAILY_ROLLING_FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+         <file>/home/sapp/logs/logback.log</file>
+         <encoder>
+             <pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} - %msg%n</pattern>
+         </encoder>
+         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+             <fileNamePattern>/home/sapp/logs/logback.log.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                 &lt;!&ndash; or whenever the file size reaches 100MB &ndash;&gt;
+                 <maxFileSize>5MB</maxFileSize>
+                 &lt;!&ndash; kb, mb, gb &ndash;&gt;
+             </timeBasedFileNamingAndTriggeringPolicy>
+             <maxHistory>30</maxHistory>
+         </rollingPolicy>
+     </appender>-->
+
+    <!--
+    <logger name="com.gaeyou.firstproject" level="INFO">
+        <appender-ref ref="DAILY_ROLLING_FILE_APPENDER" />
+    </logger>
+    -->
+
+
+
+
+<!--    <logger name="jdbc.sqlonly" level="off"></logger>-->
+
+
+    <!--<springProfile name="prod">
+        <root level="INFO">
+            <appender-ref ref="DAILY_ROLLING_FILE_APPENDER"/>
+        </root>
+    </springProfile>-->
+
+    <springProfile name="dev">
+
+        <logger name="jdbc.resultsettable" level="off"></logger>
+        <logger name="org.springframework.*" level="off"></logger>
+        <logger name="org.springframework.data.convert.CustomConversions" level="off"></logger>
+        <logger name="jdbc.resultset" level="off"></logger>
+        <logger name="jdbc.audit" level="off"></logger>
+        <logger name="sqltiming" level="debug"></logger>
+        <logger name="jdbc.connection" level="off"></logger>
+        <logger name="io.netty.util" level="ERROR"/>
+<!--        <logger name="org.mariadb.jdbc.internal.logging.ProtocolLoggingProxy" level="off"/>-->
+        <logger name="com.zaxxer.hikari.pool.HikariPool" level="off" />
+        <logger name="io.lettuce.core.protocol.RedisStateMachine" level="off"  />
+        <logger name="io.lettuce.core.protocol.CommandHandler" level="off" />
+        <logger name="org.hibernate.engine.internal.TwoPhaseLoad" level="off">
+        </logger>
+        <root level="debug">
+            <appender-ref ref="STDOUT" />
+        </root>
+    </springProfile>
+
+</configuration>
